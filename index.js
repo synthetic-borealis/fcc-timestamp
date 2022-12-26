@@ -19,10 +19,16 @@ app.get("/", function (req, res) {
 });
 
 
-app.get("/api/:date", function (req, res) {
+app.get("/api/:date?", function (req, res) {
   const { date } = req.params;
   const ticksRegex = /\d{5,}/g;
-  if (ticksRegex.test(date)) {
+  if (date === '') {
+    const time = Date.now();
+    res.json({
+      unix: time.getTime(),
+      utc: time.toUTCString(),
+    });
+  } else if (ticksRegex.test(date)) {
     const time = new Date(parseInt(date));
     res.json({
       unix: time.getTime(),
