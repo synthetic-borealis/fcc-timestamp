@@ -21,12 +21,12 @@ app.get("/", function (req, res) {
 
 app.get("/api/:date", function (req, res) {
   const { date } = req.params;
-  const ticksRegex = /\d+/g;
+  const ticksRegex = /\d{5,}/g;
   if (ticksRegex.test(date)) {
-    const time = new Date(Number(date));
+    const time = new Date(parseInt(date));
     res.json({
       unix: time.getTime(),
-      utc: time.toString(),
+      utc: time.toUTCString(),
     });
   } else if (Number.isNaN(Date.parse(date))) {
     res.json({
@@ -36,7 +36,7 @@ app.get("/api/:date", function (req, res) {
     const time = new Date(date);
     res.json({
       unix: time.getTime(),
-      utc: time.toString(),
+      utc: time.toUTCString(),
     });
   }
 });
