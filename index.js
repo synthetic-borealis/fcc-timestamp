@@ -19,9 +19,13 @@ app.get("/", function (req, res) {
 });
 
 
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+app.get("/api/:timeString", function (req, res) {
+  const { timeString } = req.params;
+  const time = new Date(timeString);
+  res.json({
+    unix: time.getTime(),
+    utc: time.toString(),
+  });
 });
 
 
