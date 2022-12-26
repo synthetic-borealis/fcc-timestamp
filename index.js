@@ -22,8 +22,9 @@ app.get("/", function (req, res) {
 app.get("/api/:date?", function (req, res) {
   const { date } = req.params;
   const ticksRegex = /\d{5,}/g;
-  if (date === '') {
-    const time = Date.now();
+  if (!date) {
+    console.log('I am here');
+    const time = new Date(Date.now());
     res.json({
       unix: time.getTime(),
       utc: time.toUTCString(),
